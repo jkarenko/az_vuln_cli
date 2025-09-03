@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.pyc
+
+# OS files
+.DS_Store
+
+# Generated reports and SBOM data
+reports/
+sbom_reports/
+
+# Generated inventory files
+*_images.txt
+all_images_inventory.csv
+
+# Generated analysis files
+*.xlsx
+
+# Temporary files from OS version analysis
+*.tmp
+
+# Configuration files
+environments.yaml

@@ -1,0 +1,70 @@
+# az_vuln_cli - Environment Configuration
+# This file defines the Azure resources for each environment
+
+environments:
+  prod:
+    name: "Production"
+    aks:
+      subscription: "YOUR-PROD-SUBSCRIPTION"
+      resource_group: "YOUR-PROD-RESOURCE-GROUP"
+      cluster_name: "YOUR-PROD-RESOURCE-GROUP"
+      inventory_file: "aks_running_images.txt"
+    
+    acrs:
+      yourfirstacr:
+        subscription: "YOUR-FIRST-ACR-SUBSCRIPTION"
+        registry_name: "yourfirstacr"
+        inventory_file: "yourfirstacr_images.txt"
+      
+      yoursecondacr:
+        subscription: "YOUR-SECOND-ACR-SUBSCRIPTION"
+        registry_name: "yoursecondacr"
+        inventory_file: "yoursecondacr_images.txt"
+  
+  # dev:
+  #   name: "Development"
+  #   aks:
+  #     subscription: 
+  #     resource_group:
+  #     cluster_name:
+  #     inventory_file:
+    
+  #   acrs:
+  #     yourfirstdevacr:
+  #       subscription:
+  #       registry_name:
+  #       inventory_file:
+      
+  #     yourseconddevacr:
+  #       subscription:
+  #       registry_name:
+  #       inventory_file:
+
+# Master inventory configuration
+master_inventory:
+  output_file: "all_images_inventory.csv"
+  sources:
+    - env: "prod"
+      source_type: "AKS"
+      inventory_file: "aks_running_images.txt"
+    - env: "dev" 
+      source_type: "AKS-DEV"
+      inventory_file: "aks_dev_running_images.txt"
+    - env: "shared"
+      source_type: "ACR-SHARED"
+      inventory_file: "shared_acr_images.txt"
+    - env: "prod"
+      source_type: "ACR-FIRST"
+      inventory_file: "first_acr_images.txt"
+    - env: "dev"
+      source_type: "ACR-SECOND"
+      inventory_file: "second_acr_images.txt"
+
+# Scan output configuration
+scan_output:
+  base_dir: "reports"
+  sbom_dir: "sbom_reports"
+  environments:
+    prod: "production"
+    dev: "dev"
+    custom: "custom"
